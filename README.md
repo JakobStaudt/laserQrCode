@@ -7,7 +7,7 @@ A Python 3 installation and the PyQRCode library.
 You can install the PyQRCode-Library with "pip install PyQRCode"
 ## How you use it:
 Open the qrGen.py file with your text editor, adjust the parameters, execute it, and a new t.nc file should appear.
-That's your g-Code. Run this with your Laser and you should get a nice QR-Code.
+That's your G-Code. Run this with your Laser and you should get a nice QR-Code.
 ## Adjustable Parameters:
 ### qrText
 This is the Data that should be encoded into the Code.
@@ -31,7 +31,7 @@ If you set it to "c"/"center", it starts in the Center of the Code.
 ### sideBorders
 If this is enabled, the Laser draws vertical lines at the borders of rastered black regions.
 ### cornerRetract
-If this is enabled, the Laser moves into the black region it lasered before before turning off to avoid burning the edge if disabling the laser takes some time.
+If this is enabled, the Laser moves into the black region it lasered before turning off to avoid burning the edge if disabling the laser takes some time.
 ### zeroMarker
 If this is enabled, the Laser burns a small dot at machine zero at the start of the Program.
 Only useful if startPos is not "center", or you will have a dot in your Code.
