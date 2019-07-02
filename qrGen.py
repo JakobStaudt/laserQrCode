@@ -8,9 +8,15 @@ errorLevel = "L"
 quietWidth = 4
 # Scale of qrCode and Box
 scale = 0.8
+#Distance between raster Lines
+spacing = 0.1
 # starting Position:
 # Empty = lower left (default), c = center, ul = upper left corner, ur = upper right corner, lr = lower right corner
 startPos = ""
+# Draw lines on the Borders of squares
+sideBorders = True
+# Retract Laser from corner before disabling
+cornerRetract = True
 # Burn dot at machine Zero?
 zeroMarker = False
 # Burn dots in all corners of quiet Zone?
@@ -79,6 +85,9 @@ if startPos == "lr" or startPos == "lowerright":
 
 gCode = "G90\nG0 F3000\nG1 F1200\n"
 
+if zeroMarker:
+    gCode += laserDot
+
 gCode += "G0 X" + str(xOffset) + " Y" + str(yOffset) + " Z0\n"
 if quietBox or quietMarkers:
     if quietBox:
@@ -106,8 +115,6 @@ if quietBox or quietMarkers:
         gCode += "G1 X" + str(quietWidth * scale + xOffset) + " Y" + str(quietWidth * scale + yOffset) + "\n"
         gCode += laserDisable
 
-elif zeroMarker:
-    gCode += laserDot
 
 
 for lineN in range(len(qrCode[::-1])):
@@ -120,7 +127,7 @@ for lineN in range(len(qrCode[::-1])):
             lineStart = point
         if line[point] == "0" and inLine:
             inLine = False
-            gCode = addSquare(gCode, lineStart*scale + xOffset, lineN*scale + yOffset, point*scale + xOffset, (lineN+1)*scale + yOffset, 1, 0.1)
+            gCode = addSquare(gCode, lineStart*scale + xOffset, lineN*scale + yOffset, point*scale + xOffset, (lineN+1)*scale + yOffset, 1, spacing, retract=cornerRetract, sideBorders=sideBorders)
 
 gCode += "G0 X0 Y0"
 
