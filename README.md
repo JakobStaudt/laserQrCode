@@ -1,5 +1,6 @@
 # laserQrCode
 Engraving QR-Codes with CNC Lasers
+![QR-Code](https://i.imgur.com/AAAwKHO.jpg)
 ## What it is:
 This Program lets you generate G-Code for engraving QR-Codes with a CNC Laser.
 ## What you need:
