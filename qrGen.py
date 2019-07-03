@@ -158,7 +158,8 @@ for lineN in range(len(qrCode[::-1])):
                 point += 1
             gCode = addSquare(gCode, lineStart*scale + xOffset, lineN*scale + yOffset, point*scale + xOffset, (lineN+1)*scale + yOffset, 1, spacing, retract=cornerRetract, sideBorders=sideBorders)
 
-gCode += "G0 X0 Y0"
+gCode += "G0 X0 Y0\n"
+gCode += "G4 P500\n"    # wait before shutting down steppers to make sure everything is stationary
 
 f = open(outputFileName, "w")
 f.write(gCode)
