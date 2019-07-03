@@ -4,9 +4,10 @@ Engraving QR-Codes with CNC Lasers
 This Program lets you generate G-Code for engraving QR-Codes with a CNC Laser.
 ## What you need:
 A Python 3 installation and the PyQRCode library.
-You can install the PyQRCode-Library with "pip install PyQRCode"
+You can install the PyQRCode-Library with "pip install PyQRCode".
+(And a CNC Laser Cutter of course)
 ## How you use it:
-Open the qrGen.py file with your text editor, adjust the parameters, execute it, and a new t.nc file should appear.
+Open the qrGen.py file with your text editor, adjust the parameters, execute it, and a new .nc-file should appear.
 That's your G-Code. Run this with your Laser and you should get a nice QR-Code.
 ## Adjustable Parameters:
 ### qrText
@@ -49,3 +50,7 @@ This string contains the G-Code to enable the Lase. use \n for new line.
 This string contains the G-Code to disable the Lase. use \n for new line.
 ### laserDot
 This string contains the G-Code to burn a dot with the Laser.
+### travelSpeed
+The Speed used for travelling while the Laser is disabled in your machine's speed unit.
+### cutSpeed
+The Speed used for cutting while the Laser is enabled in your machine's speed unit.
