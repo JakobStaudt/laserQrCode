@@ -1,5 +1,6 @@
 import pyqrcode
 
+outputFileName = "qrCode.nc"
 # Text the QR Code will be
 qrText = 'Hello World'.upper()
 #Error correction level (L, M, Q or H, corresdponds to 7%, 15%, 25%, 30%):
@@ -139,6 +140,6 @@ gCode += "G0 X0 Y0"
 
 #print(gCode)
 
-f = open("t.nc", "w")
+f = open(outputFileName, "w")
 f.write(gCode)
 f.close()
