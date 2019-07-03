@@ -8,6 +8,8 @@ errorLevel = "L"
 quietWidth = 4
 # Scale of qrCode and Box
 scale = 0.8
+# Invert dark and bright areas? (Good for stamps or etching for example)
+invert = True
 #Distance between raster Lines
 spacing = 0.1
 # starting Position:
@@ -62,6 +64,10 @@ def addSquare(gCode, xStart, yStart, xEnd, yEnd, dir, spacing, retract=True, sid
 
 qrCode = pyqrcode.create(qrText, error=errorLevel)
 qrCode = qrCode.text(quiet_zone=quietWidth)
+if invert:
+    qrCode = qrCode.replace("0", "X")
+    qrCode = qrCode.replace("1", "0")
+    qrCode = qrCode.replace("X", "1")
 qrCode = qrCode.strip().split("\n")
 qrWidth = len(qrCode)
 quietWidth = qrCode.count("0" * qrWidth) / 2
@@ -125,7 +131,7 @@ for lineN in range(len(qrCode[::-1])):
         if line[point] == "1" and not inLine:
             inLine = True
             lineStart = point
-        if line[point] == "0" and inLine:
+        if (line[point] == "0" or point==len(line)-1) and inLine:
             inLine = False
             gCode = addSquare(gCode, lineStart*scale + xOffset, lineN*scale + yOffset, point*scale + xOffset, (lineN+1)*scale + yOffset, 1, spacing, retract=cornerRetract, sideBorders=sideBorders)
 

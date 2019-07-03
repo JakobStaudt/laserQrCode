@@ -20,6 +20,8 @@ If you choose a higher error tolerance, the Code gets bigger but can be scanned 
 This specifies how wide the quiet Zone around the Code should be. Normally, this is 4 modules wide.
 ### scale
 This lets you scale the whole program up or down.
+### invert
+This inverts the dark and bright areas of the QR-Code. Useful if you want to Laser stamps or remove protective coating to etch.
 ### spacing
 This is the spacing between the Lines the laser uses to raster solid Black
 ### startPos
