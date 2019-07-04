@@ -55,3 +55,13 @@ This string contains the G-Code to burn a dot with the Laser.
 The Speed used for travelling while the Laser is disabled in your machine's speed unit.
 ### cutSpeed
 The Speed used for cutting while the Laser is enabled in your machine's speed unit.
+### outlineDemo
+If this is enabled, the laser will trace the outline of the QR-Code that will be engraved before starting engraving to show the user the space needed.
+Like codeBox but not supposed to be actually cut into the Material.
+The CNC-Machine pauses after this to allow user to abort program before actually cutting by executing the user-supplied machinePause G-Code.
+### laserDemo
+If this is enabled, the laser will be enabled while running the outline demo.
+This is useful if you can reduce your Laser power to be able to see the dot and see the area that will be engraved without actually engraving.
+If this is disabled, the Laser will trace the outline of the QR-Code without enabling the Laser.
+### machinePause
+This is the G-Code used to pause the machine after showing the outline with outlineDemo. If this is empty, the engraving will start immediately after showing the outline, so make sure this is correct and tested.
