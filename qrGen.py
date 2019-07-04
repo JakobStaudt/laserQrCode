@@ -51,23 +51,33 @@ def floatTrim(f, p):
 def addSquare(gCode, xStart, yStart, xEnd, yEnd, dir, spacing, retract=True, sideBorders=True):
     xMov = xEnd - xStart
     yMov = yEnd - yStart
-    if sideBorders:
-        gCode += "\nG0 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
-        gCode += laserEnable
-    gCode += "\nG0 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yStart, 3) + "\n"
-    if not sideBorders:
-        gCode += laserEnable
-    if dir == 0:
-        lineN = int(xMov / spacing)
-        for line in range(lineN):
-            gCode += "G1 X" + floatTrim(xStart + line*spacing, 3) + " Y" + floatTrim(yStart, 3) + "\n"
-            gCode += "G1 X" + floatTrim(xStart + line*spacing, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
+    if spacing > 0:
+        if sideBorders:
+            gCode += "\nG0 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
+            gCode += laserEnable
+        gCode += "\nG0 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yStart, 3) + "\n"
+        if not sideBorders:
+            gCode += laserEnable
+        if dir == 0:
+            lineN = int(xMov / spacing)
+            for line in range(lineN):
+                gCode += "G1 X" + floatTrim(xStart + line*spacing, 3) + " Y" + floatTrim(yStart, 3) + "\n"
+                gCode += "G1 X" + floatTrim(xStart + line*spacing, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
+        else:
+            lineN = int(yMov / spacing)
+            for line in range(lineN + 1):
+                gCode += "G1 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yStart + line*spacing, 3) + "\n"
+                gCode += "G1 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yStart + line*spacing, 3) + "\n"
+            gCode += "G1 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
+            gCode += "G1 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
+        if sideBorders:
+            gCode += "\nG0 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yStart, 3) + "\n"
     else:
-        lineN = int(yMov / spacing)
-        for line in range(lineN + 1):
-            gCode += "G1 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yStart + line*spacing, 3) + "\n"
-            gCode += "G1 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yStart + line*spacing, 3) + "\n"
-    if sideBorders:
+        gCode += "\nG0 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yStart, 3) + "\n"
+        gCode += laserEnable
+        gCode += "\nG0 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
+        gCode += "\nG0 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
+        gCode += "\nG0 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yStart, 3) + "\n"
         gCode += "\nG0 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yStart, 3) + "\n"
     if retract:
         gCode += "G1 X" + floatTrim(xEnd - 0.5 * (yMov/abs(yMov)) * scale, 3) + " Y" + floatTrim(yEnd - 0.5 * (yMov/abs(yMov)) * scale, 3) + "\n"
@@ -131,7 +141,7 @@ elif quietBox or quietMarkers:
     gCode += "G1 X" + floatTrim(qrWidth*scale + xOffset, 3) + " Y" + floatTrim(yOffset, 3) + "\n"
     if quietMarkers:
         gCode += laserDot
-    gCode += "G0 X" + floatTrim(xOffset, 3) + " Y" + floatTrim(yOffset, 3) + "\n"
+    gCode += "G1 X" + floatTrim(xOffset, 3) + " Y" + floatTrim(yOffset, 3) + "\n"
     if quietBox:
         gCode += laserDisable
     if codeBox:
