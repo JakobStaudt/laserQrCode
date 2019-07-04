@@ -45,6 +45,14 @@ laserDemo = True
 # G-Code to pause after outlineDemo before beginning cutting
 machinePause = "M3070\n"
 
+if not laserEnable.endswith("\n"):
+    laserEnable = laserEnable + "\n"
+if not laserDisable.endswith("\n"):
+    laserDisable = laserDisable + "\n"
+if not laserDot.endswith("\n"):
+    laserDot = laserDot + "\n"
+if not machinePause.endswith("\n"):
+    machinePause = machinePause + "\n"
 
 def floatTrim(f, p):
     if p > 0:
