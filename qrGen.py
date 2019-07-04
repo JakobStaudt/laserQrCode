@@ -53,7 +53,7 @@ def addSquare(gCode, xStart, yStart, xEnd, yEnd, dir, spacing, retract=True, sid
     yMov = yEnd - yStart
     if spacing > 0:
         if sideBorders:
-            gCode += "\nG0 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
+            gCode += "\nG1 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
             gCode += laserEnable
         gCode += "\nG0 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yStart, 3) + "\n"
         if not sideBorders:
@@ -71,7 +71,7 @@ def addSquare(gCode, xStart, yStart, xEnd, yEnd, dir, spacing, retract=True, sid
             gCode += "G1 X" + floatTrim(xStart, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
             gCode += "G1 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yEnd, 3) + "\n"
         if sideBorders:
-            gCode += "\nG0 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yStart, 3) + "\n"
+            gCode += "\nG1 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yStart, 3) + "\n"
     else:
         gCode += "\nG0 X" + floatTrim(xEnd, 3) + " Y" + floatTrim(yStart, 3) + "\n"
         gCode += laserEnable
