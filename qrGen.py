@@ -3,7 +3,7 @@ import pyqrcode
 outputFileName = "qrCode.nc"
 # Text the QR Code will be
 qrText = 'Hello World'.upper()
-#Error correction level (L, M, Q or H, corresdponds to 7%, 15%, 25%, 30%):
+# Error correction level (L, M, Q or H, corresdponds to 7%, 15%, 25%, 30%):
 errorLevel = "L"
 # width of quiet zone (standard = 4):
 quietWidth = 4
