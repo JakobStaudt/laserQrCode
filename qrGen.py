@@ -38,6 +38,12 @@ laserDot = laserEnable + "G4 P200\n" + laserDisable
 travelSpeed = 3000
 # Speed to use while Laser is enabled
 cutSpeed = 1200
+# show outline before beginning cutting?
+outlineDemo = True
+# enable Laser while showing outline? (useful if you can reduce laser power)
+laserDemo = True
+# G-Code to pause after outlineDemo before beginning cutting
+machinePause = "M3070\n"
 
 
 def floatTrim(f, p):
@@ -122,6 +128,18 @@ gCode += ";DIMENSIONS: " + str(qrWidth) + "*" + str(qrWidth) + " Modules, quietZ
 gCode += ";DIMENSIONS: " + floatTrim(qrWidth*scale, 1) + "*" + floatTrim(qrWidth*scale, 1) + " mm,  quietZone width=" + floatTrim(quietWidth*scale, 1) + " mm\n"
 
 gCode += "G90\nG0 F" + str(travelSpeed) + "\nG1 F" + str(cutSpeed) + "\n"
+
+if outlineDemo:
+    gCode += "G0 X" + floatTrim(xOffset, 3) + " Y" + floatTrim(yOffset, 3) + " Z0\n"
+    if laserDemo:
+        gCode += laserEnable
+    gCode += "G1 X" + floatTrim(xOffset, 3) + " Y" + floatTrim(qrWidth*scale + yOffset, 3) + "\n"
+    gCode += "G1 X" + floatTrim(qrWidth*scale + xOffset, 3) + " Y" + floatTrim(qrWidth*scale + yOffset, 3) + "\n"
+    gCode += "G1 X" + floatTrim(qrWidth*scale + xOffset, 3) + " Y" + floatTrim(yOffset, 3) + "\n"
+    gCode += "G1 X" + floatTrim(xOffset, 3) + " Y" + floatTrim(yOffset, 3) + "\n"
+    if laserDemo:
+        gCode += laserDisable
+    gCode += machinePause
 
 if zeroMarker:
     gCode += laserDot
